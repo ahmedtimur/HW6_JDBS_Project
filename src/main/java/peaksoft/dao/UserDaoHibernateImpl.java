@@ -34,6 +34,11 @@ public class UserDaoHibernateImpl implements UserDao {
     public void createUsersTable() {
         Session session = UserDaoHibernateImpl.getSessionFactory().openSession();
         session.beginTransaction();
+        session.createSQLQuery("create  table if not exists users ( " +
+                " id serial not null ," +
+                " name  varchar(50) not null, " +
+                " lastName varchar(50) not null ," +
+                " age int  not null )").executeUpdate();
         session.getTransaction().commit();
         session.close();
         System.out.println("Table creates successfully...");
@@ -43,8 +48,7 @@ public class UserDaoHibernateImpl implements UserDao {
     public void dropUsersTable() {
         Session session = UserDaoHibernateImpl.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("delete User");
-        query.executeUpdate();
+        session.createSQLQuery("drop table if exists users").executeUpdate();
         session.getTransaction().commit();
         session.close();
         System.out.println("Deleted successfully...");
