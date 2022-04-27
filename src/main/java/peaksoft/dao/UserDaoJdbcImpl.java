@@ -19,10 +19,9 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     public void createUsersTable() {
-        String sql = createTable;
         try(Connection connect = Util.connection();
             Statement statement = connect.createStatement()) {
-            statement.executeUpdate(sql);
+            statement.executeUpdate(createTable);
             System.out.println("Table created...");
         }
         catch (SQLException e) {
@@ -31,10 +30,9 @@ public class UserDaoJdbcImpl implements UserDao {
     }
 
     public void dropUsersTable() {
-        String sql = dropTable;
         try(Connection connection = Util.connection();
         Statement statement = connection.createStatement()) {
-            statement.executeUpdate(sql);
+            statement.executeUpdate(dropTable);
             System.out.println("Table dropped...");
         }
         catch (SQLException e) {
